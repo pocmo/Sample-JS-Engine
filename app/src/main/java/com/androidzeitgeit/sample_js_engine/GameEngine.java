@@ -27,6 +27,7 @@ public class GameEngine {
         loadAsset("engine.js");
         loadAsset("gamestate.js");
         loadAsset("transitions.js");
+        loadAsset("helper.js");
     }
 
     private void loadAsset(String asset) {
@@ -47,6 +48,11 @@ public class GameEngine {
         }
     }
 
+    public void initServer() {
+        Function function = (Function) scriptScope.get("engine_initServer");
+        function.call(scriptContext, scriptScope, scriptScope, new Object[] {});
+    }
+
     public void setBridge(Bridge bridge) {
         Object wrappedBridge = Context.javaToJS(bridge, scriptScope);
         ScriptableObject.putProperty(scriptScope, "bridge", wrappedBridge);
@@ -65,5 +71,11 @@ public class GameEngine {
     public void joinGame(String playerId) {
         Function function = (Function) scriptScope.get("engine_joinGame");
         function.call(scriptContext, scriptScope, scriptScope, new Object[] { playerId });
+    }
+
+    public void shoot(String source, String target) {
+        Function function = (Function) scriptScope.get("engine_shoot");
+        function.call(scriptContext, scriptScope, scriptScope, new Object[] { source, target });
+
     }
 }

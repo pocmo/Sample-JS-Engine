@@ -18,6 +18,7 @@ public class Server {
         // We "running" and are waiting for connections now
 
         engine.setBridge(new Bridge(network));
+        engine.initServer();
     }
 
     public void onMessageReceived(String message) {
